@@ -1,0 +1,11 @@
+.todo-list {
+  & > li.active {
+    text-decoration: line-through;
+    font-style: italic;
+    color: #ccc;
+  }
+
+  & > .item-list {
+    font-style: bold;
+  }
+}

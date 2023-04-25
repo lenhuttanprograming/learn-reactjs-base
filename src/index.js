@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import { Provider } from 'react-redux';
+import store from './app/store';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
+import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <BrowserRouter>
+        <SnackbarProvider anchorOrigin={{ horizontal: 'right', vertical: 'top' }}>
+          <App />
+        </SnackbarProvider>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
