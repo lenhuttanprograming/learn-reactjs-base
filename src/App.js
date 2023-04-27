@@ -7,15 +7,16 @@ import Header from './components/Header';
 import TodoFeature from 'features/Todo/Pages';
 import AlbumFeature from 'features/Album/pages';
 import { SnackbarProvider } from 'notistack';
+import ProductFeature from 'features/Product';
 
 function App() {
-  useEffect(() => {
-    async function fetchProductApi() {
-      const params = { _limit: 10 };
-      const products = await productApi.getAll(params);
-    }
-    fetchProductApi();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchProductApi() {
+  //     const params = { _limit: 10 };
+  //     const products = await productApi.getAll(params);
+  //   }
+  //   fetchProductApi();
+  // }, []);
 
   return (
     <div className="app">
@@ -31,6 +32,7 @@ function App() {
         {/* <Route path="/todos" component={TodoFeatureV3} /> */}
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
+        <Route path="/products" component={ProductFeature}></Route>
       </Switch>
       {/* <AlbumFeature /> */}
       {/* <Counter /> */}

@@ -1,14 +1,23 @@
-import { LocalParking } from '@material-ui/icons';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from 'api/userApi';
-import { act } from 'react-dom/test-utils';
+import StorageKeys from 'constants/storage-keys';
 
 export const register = createAsyncThunk('user/register', async (payload) => {
   const data = await userApi.register(payload);
 
   //save data to localStorage
-  localStorage.setItem('access_token', data.jwt);
-  localStorage.setItem('user', JSON.stringify(data.user));
+  localStorage.setItem(StorageKeys.TOKEN, data.jwt);
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));
+
+  return data.user;
+});
+
+export const login = createAsyncThunk('user/login', async (payload) => {
+  const data = await userApi.login(payload);
+
+  //save data to localStorage
+  localStorage.setItem(StorageKeys.TOKEN, data.jwt);
+  localStorage.setItem(StorageKeys.USER, JSON.stringify(data.user));
 
   return data.user;
 });
@@ -16,16 +25,29 @@ export const register = createAsyncThunk('user/register', async (payload) => {
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    current: {},
+    current: JSON.parse(localStorage.getItem(StorageKeys.USER)) || {},
     settings: {},
   },
-  reducers: {},
+  reducers: {
+    logout(state) {
+      // remove localStorage
+      localStorage.removeItem(StorageKeys.USER);
+      localStorage.removeItem(StorageKeys.TOKEN);
+
+      state.current = {};
+    },
+  },
   extraReducers: {
     [register.fulfilled]: (state, action) => {
+      state.current = action.payload;
+    },
+
+    [login.fulfilled]: (state, action) => {
       state.current = action.payload;
     },
   },
 });
 
-const { reducer } = userSlice;
+const { actions, reducer } = userSlice;
+export const { logout } = actions;
 export default reducer;
