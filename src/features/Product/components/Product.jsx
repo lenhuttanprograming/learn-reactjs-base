@@ -14,7 +14,7 @@ function Product({ product }) {
   const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMBNAIL_PLACHOLDER;
   return (
     <Box padding={1}>
-      <Box padding={1}>
+      <Box padding={1} minHeight="210px">
         <img width="100%" src={thumbnailUrl} alt="img tag" />
       </Box>
       <Typography variant="body2">{product.name}</Typography>
