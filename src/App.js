@@ -32,7 +32,7 @@ function App() {
         {/* <Route path="/todos" component={TodoFeatureV3} /> */}
         <Route path="/todos" component={TodoFeature} />
         <Route path="/albums" component={AlbumFeature} />
-        <Route path="/products" component={ProductFeature}></Route>
+        <Route path="" component={ProductFeature}></Route>
       </Switch>
       {/* <AlbumFeature /> */}
       {/* <Counter /> */}
